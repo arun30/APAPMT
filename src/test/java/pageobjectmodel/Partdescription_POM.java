@@ -105,7 +105,7 @@ public class Partdescription_POM extends Baseclass {
 	public void descriptionclick() throws InterruptedException {
 		partdescclick.click();
 		//driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
-		//Thread.sleep(3000);
+		Thread.sleep(3000);
 		
 	}
 	/*
@@ -149,15 +149,17 @@ public class Partdescription_POM extends Baseclass {
 		//logger.log(LogStatus.INFO,"Alert text " + alert.getText());
 		System.out.println("Parts Related " + "Description Notes" + alert.getText());
 		alert.accept();
+		Thread.sleep(3000);
 		
 	}
 	
 	
 	
 	
-	public void editpartdesc(String editnotes) {
+	public void editpartdesc(String editnotes) throws Exception {
 		driver.switchTo().frame(0);
 		imgEdit_0.click();
+		Thread.sleep(2000);
 		txtNotes.sendKeys(editnotes);
 		
 	}

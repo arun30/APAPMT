@@ -17,7 +17,7 @@ When User will click on part description frame and will edit the notes & saved
 Then User will see successfull alert and verify the record should be edited
 
 
-@partdesc
+
 Scenario: Deleting part description Test case
 Given User will go to parts page and search for the part# to delete 
 When User will click on part description frame and will delete the added or available record
