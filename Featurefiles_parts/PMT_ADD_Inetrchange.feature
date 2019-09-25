@@ -9,7 +9,7 @@ When User will click on the interchange frame, choose interchange name dropdown,
 Then User will see successfull alert and verify the record to be shown in the grid below
 
 
-@interchange
+
 Scenario: Editing inetrchange Test case
 Given User will go to parts page and search for the part# to edit data
 When User will click on interchange frame and will edit the notes & saved

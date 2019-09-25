@@ -1,6 +1,10 @@
 package pageobjectmodel;
 
+import java.util.List;
+import java.util.concurrent.TimeUnit;
+
 import org.openqa.selenium.Alert;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
@@ -60,24 +64,40 @@ public class Interchange_POM extends Baseclass{
 		
 		
 		
-		public void partslanding(String partnoenter) {
+		public void partslanding() {
 			partspageheaderclick.click();
+			driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+		}
+		
+		public void partsearch(String partnoenter) throws InterruptedException {
 			txtpartsearch.sendKeys(partnoenter);
+			List<WebElement> list = driver.findElements(By.xpath("//ul[@id='ACBehavior_completionListElem']//li"));
+			System.out.println("total number of parts-->" + list.size());
+			
+			for(int i=0; i<list.size(); i++) {
+				System.out.println(list.get(i).getText());
+				if(list.get(i).getText().contains("Testpart-1 | Ignition Test | Autoapa")) {
+					list.get(i).click();
+					break;
+				}
+			}
 			btnPsearch.click();
+			Thread.sleep(3000);
 		}
 		
 		
-		public void interchangesclick() {
+		public void interchangesclick() throws InterruptedException {
 			interchangeclick.click();
-			
+			Thread.sleep(2000);
 		}
 		
 		
 		
 		public void interchangedrpdownnotes() throws InterruptedException {
+			driver.switchTo().frame(0);
 			WebElement intnotesselect = drpCompetitorName ;
 			Select select = new Select(intnotesselect);
-			select.selectByVisibleText(pro.getProperty("interchangetype"));
+			select.selectByValue("129");
 			Thread.sleep(2000);
 		}
 		
@@ -101,23 +121,27 @@ public class Interchange_POM extends Baseclass{
 		public void acceptAlert() throws InterruptedException{
 			Alert alert = driver.switchTo().alert();
 			//logger.log(LogStatus.INFO,"Alert text " + alert.getText());
-			System.out.println("Parts Related " + "Description Notes" + alert.getText());
+			System.out.println("Parts Related " + "Interchange " + alert.getText());
 			alert.accept();
-			
+			Thread.sleep(2000);
 		}
 		
 		
 		
 		
-		public void editinterchange(String editnotes) {
+		public void editinterchange(String editnotes) throws InterruptedException {
+			driver.switchTo().frame(0);
 			imgEdit_0.click();
+			Thread.sleep(2000);
 			txtCompetitorPartno1.sendKeys(editnotes);
 			
 		}
 		
 		
-		public void deletepartinter() {
+		public void deletepartinter() throws InterruptedException {
+			driver.switchTo().frame(0);
 			imgDelete_0.click();
+			Thread.sleep(2000);
 		}
 		
 		
