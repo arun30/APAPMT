@@ -2,7 +2,7 @@ Feature: PMT Add Product List
 Description: User will add part description for that part#
 
 
-@partdesc
+
 Scenario: Adding part description Test case
 Given User will go to parts page and search for the part#
 When User will click on the part description and landed in description page

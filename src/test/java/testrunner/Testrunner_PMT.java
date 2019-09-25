@@ -7,7 +7,7 @@ import cucumber.api.junit.Cucumber;
 
 @RunWith(Cucumber.class)
 @CucumberOptions(
-		features = "Featurefiles",
+		features = "Featurefiles_parts",
 		glue = "pmttestcases.stepdefinition",
 		dryRun = false,
 		monochrome = true,
@@ -15,7 +15,7 @@ import cucumber.api.junit.Cucumber;
 			//	plugin = {"com.cucumber.listener.ExtentCucumberFormatter:target/html/ExtentReport.html"},
 				//plugin = { "com.cucumber.listener.ExtentCucumberFormatter:target/cucumber-reports/report.html"},
 		strict = false,
-				tags = {"@productrelated"}
+				tags = {"~@Parts","@partdesc"}
 		
 		)
 

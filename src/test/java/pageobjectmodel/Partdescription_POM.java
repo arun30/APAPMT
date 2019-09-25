@@ -1,10 +1,19 @@
 package pageobjectmodel;
 
+
+
+import java.util.List;
+import java.util.concurrent.TimeUnit;
+
 import org.openqa.selenium.Alert;
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.Select;
+
+
 
 import utility.Baseclass;
 
@@ -31,19 +40,27 @@ public class Partdescription_POM extends Baseclass {
 	@FindBy(xpath="//input[@id='MainContent_btnPsearch']")
 	private WebElement btnPsearch;
 	
-	
+	//div[@id='Description']
 	@FindBy(xpath="//div[@id='Description']")
 	private WebElement partdescclick;
 	
 	
-	@FindBy(xpath="//select[@id='MainContent_drpNotesType']")
+	
+	@FindBy(xpath="//select[@id='MainContent_drpSProductLine']")
 	private WebElement drpNotesType;
+	
+	
+	
+	@FindBy(xpath="//select[@id='MainContent_drpNotesType']")
+	private WebElement drpNotesType1;
 	
 	
 	@FindBy(xpath="//input[@id='MainContent_txtNotes']")
 	private WebElement txtNotes;
 	
 	
+	@FindBy(xpath="//td[@class='pad_top_15']")
+	private WebElement clk;
 	
 	@FindBy(xpath="//input[@id='MainContent_btnSave']")
 	private WebElement btnSave;
@@ -60,24 +77,51 @@ public class Partdescription_POM extends Baseclass {
 	
 	
 	
-	public void partslanding(String partnoenter) {
+	public void partslanding() {
 		partspageheaderclick.click();
-		txtpartsearch.sendKeys(partnoenter);
-		btnPsearch.click();
-	}
-	
-	
-	public void descriptionclick() {
-		partdescclick.click();
+		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 		
 	}
 	
 	
+	public void partsearch(String partnoenter) throws InterruptedException {
+		
+		txtpartsearch.sendKeys(partnoenter);
+		List<WebElement> list = driver.findElements(By.xpath("//ul[@id='ACBehavior_completionListElem']//li"));
+		System.out.println("total number of parts-->" + list.size());
+		
+		for(int i=0; i<list.size(); i++) {
+			System.out.println(list.get(i).getText());
+			if(list.get(i).getText().contains("Testpart-1 | Ignition Test | Autoapa")) {
+				list.get(i).click();
+				break;
+			}
+		}
+		btnPsearch.click();
+		Thread.sleep(3000);
+	}
+	
+	
+	public void descriptionclick() throws InterruptedException {
+		partdescclick.click();
+		//driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+		//Thread.sleep(3000);
+		
+	}
+	/*
+	public void descdrop1() throws InterruptedException {
+		
+		WebElement descnotes = drpNotesType;
+		Select select = new Select(descnotes);
+		select.selectByValue("1");
+		Thread.sleep(2000);
+	}*/
 	
 	
 	public void descriptiondrpdownnotes() throws InterruptedException {
-		WebElement descnotesselect = drpNotesType ;
-		Select select = new Select(descnotesselect);
+		driver.switchTo().frame(0);
+		WebElement descnote = drpNotesType1;
+		Select select = new Select(descnote);
 		select.selectByVisibleText(pro.getProperty("notestype"));
 		Thread.sleep(2000);
 	}
@@ -89,8 +133,9 @@ public class Partdescription_POM extends Baseclass {
 	}
 	
 	
-	public void savebtn() {
+	public void savebtn() throws InterruptedException {
 		btnSave.click();
+		Thread.sleep(3000);
 	}
 	
 	
@@ -111,14 +156,17 @@ public class Partdescription_POM extends Baseclass {
 	
 	
 	public void editpartdesc(String editnotes) {
+		driver.switchTo().frame(0);
 		imgEdit_0.click();
 		txtNotes.sendKeys(editnotes);
 		
 	}
 	
 	
-	public void deletepartdesc() {
+	public void deletepartdesc() throws Exception {
+		driver.switchTo().frame(0);
 		imgDelete_0.click();
+		Thread.sleep(2000);
 	}
 	
 	

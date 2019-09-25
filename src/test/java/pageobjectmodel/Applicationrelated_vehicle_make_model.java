@@ -3,6 +3,7 @@ package pageobjectmodel;
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.Alert;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -168,6 +169,8 @@ public class Applicationrelated_vehicle_make_model extends Baseclass {
 		
 		maketextbox.sendKeys(makename);
 		Thread.sleep(1000);
+		JavascriptExecutor js = (JavascriptExecutor) driver;
+		js.executeScript("arguments[0].scrollIntoView();", eqmakeradibutton);
 		eqmakeradibutton.click();
 		Thread.sleep(1000);
 		savebutton.click();
@@ -202,6 +205,7 @@ public class Applicationrelated_vehicle_make_model extends Baseclass {
 		modelselect.click();
 		Thread.sleep(5000);
 		addbutton.click();
+		Thread.sleep(3000);
 	}
 	
 	
@@ -212,18 +216,23 @@ public class Applicationrelated_vehicle_make_model extends Baseclass {
 	 * vehicle type choose, make choose, model name add & equivalent model choose
 	 */
 	public void addmodelname() throws InterruptedException {
-		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+		//driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 		WebElement element = vehicletypeselect;
-		WebElement element1 = dropdownmakeselect;
 		Select select = new Select(element);
 		select.selectByVisibleText(pro.getProperty("vehicletypename"));		
 		Thread.sleep(2000);
+	}
 		
+		
+	public void addmodeldrp2() throws InterruptedException {	
+		WebElement element1 = dropdownmakeselect;
 		Select select1 = new Select(element1);
 		select1.selectByVisibleText(pro.getProperty("makename"));		
 		Thread.sleep(2000);
 		
 	}
+	
+	
 	
 	
 	/*
@@ -233,6 +242,8 @@ public class Applicationrelated_vehicle_make_model extends Baseclass {
 	public void modelnameadd(String modelname) throws InterruptedException {
 		modeltextbox.sendKeys(modelname);
 		eqmodelradiobutton.click();
+		JavascriptExecutor js = (JavascriptExecutor) driver;
+		js.executeScript("arguments[0].scrollIntoView();", savebutton);
 		savebutton.click();
 		Thread.sleep(2000);
 		}

@@ -22,7 +22,7 @@ When User will click on the add button and choose the category & sub category dr
 And User will enter the part description name  and save button is clicked
 Then User will see successfully added and verify the record has come
 
-
+@productrelated
 Scenario: Adding product Line
 Given User will go to master and choose product line
 When User will click on add button and enter the line code and line name

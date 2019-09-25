@@ -107,13 +107,15 @@ public class TC002_PMT_productrelated extends Baseclass {
 		mpom.addsubcategory(); //category choose
 		mpom.categoryselect(); //subcategory select
 		mpom.entrypartdesc(pro.getProperty("partdesc"));
+		mpom.equivalentpartdesc();
 		
 	}
 
 	@And("^User will enter the part description name  and save button is clicked$")
 	public void user_will_enter_the_part_description_name_and_save_button_is_clicked() throws Throwable {
 	   
-		mpom.savingcategory();
+		
+		mpom.savingpartdesc();
 	}
 
 	@Then("^User will see successfully added and verify the record has come$")
@@ -126,18 +128,22 @@ public class TC002_PMT_productrelated extends Baseclass {
 	@Given("^User will go to master and choose product line$")
 	public void user_will_go_to_master_and_choose_product_line() throws Throwable {
 	    
-		//mpom = new Masterproductrelated_POM();
-		System.out.println("sucess");
+		mpom = new Masterproductrelated_POM();
+		mpom.clickonproductlinecode();
 	}
 
 	@When("^User will click on add button and enter the line code and line name$")
 	public void user_will_click_on_add_button_and_enter_the_line_code_and_line_name() throws Throwable {
 	   
+		mpom.addcategory1();
+		mpom.addproductline(pro.getProperty("productline"), pro.getProperty("linename"));
+		mpom.savebtn();
 	}
 
 	@Then("^User will see successfully alert and verify the record has come in the grid$")
 	public void user_will_see_successfully_alert_and_verify_the_record_has_come_in_the_grid() throws Throwable {
 	    
+		mpom.acceptAlertline();
 	}
 	
 	

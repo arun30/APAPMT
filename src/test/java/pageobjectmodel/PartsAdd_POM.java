@@ -1,6 +1,9 @@
 package pageobjectmodel;
 
+import java.util.concurrent.TimeUnit;
+
 import org.openqa.selenium.Alert;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
@@ -45,6 +48,9 @@ public class PartsAdd_POM extends Baseclass {
 	@FindBy(xpath="//input[@id='MainContent_txtPart']")
 	private WebElement txtPart;
 	
+	@FindBy(xpath="//select[@id='MainContent_drpMinQtyUOM']")
+	private WebElement drpMinQtyUOM;
+	
 	
 	@FindBy(xpath="//input[@id='MainContent_btnSave']")
 	private WebElement btnSave;
@@ -76,10 +82,11 @@ public class PartsAdd_POM extends Baseclass {
 	
 	
 	
-	public void partslandingpage(){
+	public void partslandingpage() throws InterruptedException{
 		partspageheaderclick.click();
+		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 		addbutton.click();
-		
+		Thread.sleep(2000);
 	}
 	
 	
@@ -117,9 +124,16 @@ public class PartsAdd_POM extends Baseclass {
 	
 	
 	
-	public void savenewpart(String partname) {
+	public void savenewpart(String partname) throws InterruptedException {
 		txtPart.sendKeys(partname);
+		WebElement minqtyselect = drpMinQtyUOM;
+		Select select = new Select(minqtyselect);
+		select.selectByVisibleText(pro.getProperty("minqty"));
+		Thread.sleep(2000);
+		JavascriptExecutor js = (JavascriptExecutor) driver;
+		js.executeScript("arguments[0].scrollIntoView();", btnSave);
 		btnSave.click();
+		Thread.sleep(2000);
 	}
 	
 	
@@ -137,6 +151,13 @@ public class PartsAdd_POM extends Baseclass {
 	
 	
 	
+	public void partslandingpage2() throws InterruptedException{
+		partspageheaderclick.click();
+		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+		
+	}
+	
+	
 	public void dropdownfiltercategory() throws InterruptedException{
 		WebElement categoryfilterselect = drpProductCategory;
 		Select select = new Select(categoryfilterselect);
@@ -145,7 +166,7 @@ public class PartsAdd_POM extends Baseclass {
 	}
 	
 	
-	
+	/*
 	public void dropdownfiltersubcategory() throws InterruptedException{
 		WebElement subcategoryfilterselect = drpProductSubCategory;
 		Select select = new Select(subcategoryfilterselect);
@@ -179,11 +200,12 @@ public class PartsAdd_POM extends Baseclass {
 		select.selectByVisibleText(pro.getProperty("partname"));
 		Thread.sleep(2000);
 	}
+	*/
 	
 	
-	
-	public void filetrpartno() {
+	public void filetrpartno() throws InterruptedException {
 		btnSearch.click();
+		Thread.sleep(3000);
 		
 	}
 	

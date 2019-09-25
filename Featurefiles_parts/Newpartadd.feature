@@ -1,7 +1,7 @@
 Feature: PMT Add Product List
 Description: User will add part#
 
-@Parts
+
 Scenario: Adding part# with created product category
 Given User will click on parts page and it will redirect to parts page
 When User will click on the add buton and choose product category, sub category,part desc, product line

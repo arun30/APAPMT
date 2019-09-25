@@ -3,12 +3,16 @@ package pageobjectmodel;
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.Alert;
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.CacheLookup;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import utility.Baseclass;
 
@@ -65,6 +69,22 @@ public class Masterproductrelated_POM extends Baseclass {
 	
 	@FindBy(xpath = "//input[@id='MainContent_txtPartDescription']")
 	private WebElement enternewpartdesc;
+	
+	
+	@FindBy(xpath="//select[@id='MainContent_drpAcesPartTerminology']")
+	private WebElement equivalentpartdes;
+	
+	
+	@FindBy(xpath="//a[@id='ucMenu_rptLevel1_rptLevel2_0_rptLevel3_0_lnkLink3_5']")
+	private WebElement prdtln;
+	
+	
+	@FindBy(xpath="//input[@id='MainContent_txtlinecode']")
+	private WebElement txtlinecode;
+	
+	@FindBy(xpath="//input[@id='MainContent_txtlinename']")
+	private WebElement txtlinename;
+	
 	
 	public void clickonproductcategory() throws Throwable {
 			
@@ -128,11 +148,12 @@ public class Masterproductrelated_POM extends Baseclass {
 		Thread.sleep(2000);
 	}
 	
-	public void entrysubcategory(String subcategoryname) {
+	public void entrysubcategory(String subcategoryname) throws InterruptedException {
 		clicksubcatname.click();
 		entersubcategory.sendKeys(subcategoryname);
 		eqsubcategory.click();
 		savecategory.click();
+		Thread.sleep(2000);
 	}
 	
 	public void acceptAlertsub() throws InterruptedException{
@@ -176,5 +197,70 @@ public class Masterproductrelated_POM extends Baseclass {
 		alert.accept();
 		
 	}
+	
+	
+	public void equivalentpartdesc() throws InterruptedException {
+		
+		//driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+		WebElement element1 = equivalentpartdes;
+		Select select1 = new Select(element1);
+		select1.selectByVisibleText(pro.getProperty("equivalentpartsdesc"));		
+		Thread.sleep(2000);
+		
+	}
+
+	
+	public void savingpartdesc() throws InterruptedException {
+		
+		//WebDriverWait wait = new WebDriverWait(driver, 30);
+		//wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("/input[@id='MainContent_btnSave']")));
+		JavascriptExecutor js = (JavascriptExecutor) driver;
+		js.executeScript("arguments[0].scrollIntoView();", savecategory);
+		savecategory.click();
+		Thread.sleep(2000);
+		//wait(2);
+	}
+	
+	
+	
+	
+	public void clickonproductlinecode() throws Throwable {
+		
+		Actions action = new Actions(driver);
+		action.moveToElement(master).build().perform();
+		Thread.sleep(3000);
+		prdtln.click();
+		Thread.sleep(5000);
+	}
+	
+	
+	
+	public void addproductline(String linecode,String linename) {
+		
+		txtlinecode.sendKeys(linecode);
+		txtlinename.sendKeys(linename);
+		
+	}
+	
+	
+	
+	public void savebtn() throws InterruptedException {
+		savecategory.click();
+		Thread.sleep(2000);
+		
+	}
+	
+	
+	
+	public void acceptAlertline() throws InterruptedException{
+		Alert alert = driver.switchTo().alert();
+		//logger.log(LogStatus.INFO,"Alert text " + alert.getText());
+		System.out.println("Product Category " +pro.getProperty("productline") + alert.getText());
+		alert.accept();
+		Thread.sleep(2000);
+		
+	}
+	
+	
 	
 }

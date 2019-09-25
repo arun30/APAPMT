@@ -33,7 +33,7 @@ public class ExtentReport {
 		report = new ExtentHtmlReporter(reportlocation);
 		report.config().setDocumentTitle("AUTOMATION TEST REPORT");
 		report.config().setReportName("PMT BASIC FUNCTIONALITY TEST REPORT");
-		report.config().setTheme(Theme.DARK);
+		report.config().setTheme(Theme.STANDARD);
 		System.out.println("Extent Report Initialized");
 		report.start();
 		
